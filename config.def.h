@@ -192,6 +192,8 @@ static Shortcut shortcuts[] = {
 	/* mask                 keysym          function        argument */
 	{ MODKEY,               XK_o,           opencopied,     {.v = "xdg-open"} },
   { MODKEY,               XK_l,           copyurl,        {.i =  0} },
+	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
+	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
 	{ XK_ANY_MOD,           XK_Break,       sendbreak,      {.i =  0} },
 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },

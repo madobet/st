@@ -83,6 +83,8 @@ void redraw(void);
 void draw(void);
 
 void opencopied(const Arg *);
+void kscrolldown(const Arg *);
+void kscrollup(const Arg *);
 void printscreen(const Arg *);
 void printsel(const Arg *);
 void sendbreak(const Arg *);
