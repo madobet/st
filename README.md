@@ -36,3 +36,5 @@ Based on Aurélien APTEL <aurelien dot aptel at gmail dot com> bt source code.
 
 ## Pathced with
 
+- \[ [Alapha Focus Highlight](https://st.suckless.org/patches/alpha_focus_highlight/) \]:
+  [st-alphaFocusHighlight-20191107-2b8333f.diff](https://github.com/juliusHuelsmann/st/releases/download/patchesV1/st-alphaFocusHighlight-20191107-2b8333f.diff)
