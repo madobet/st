@@ -51,4 +51,3 @@ Based on Aurélien APTEL <aurelien dot aptel at gmail dot com> bt source code.
 - \[ [copyurl](https://st.suckless.org/patches/copyurl/) + [open_copied_url](https://st.suckless.org/patches/open_copied_url/) \]:
   - [st-copyurl-20190202-3be4cf1.diff](https://st.suckless.org/patches/copyurl/st-copyurl-20190202-3be4cf1.diff)
   - [st-openclipboard-20190202-3be4cf1.diff](https://st.suckless.org/patches/open_copied_url/st-openclipboard-20190202-3be4cf1.diff)
-
