@@ -41,3 +41,6 @@ Based on Aurélien APTEL <aurelien dot aptel at gmail dot com> bt source code.
 
 - \[ [anysize](https://st.suckless.org/patches/anysize/) \]:
   [st-anysize-0.8.1.diff](https://st.suckless.org/patches/anysize/st-anysize-0.8.1.diff)
+
+- \[ [boxdraw](https://st.suckless.org/patches/boxdraw/) \]:
+  [st-boxdraw_v2-0.8.2.diff](https://st.suckless.org/patches/boxdraw/st-boxdraw_v2-0.8.2.diff)
