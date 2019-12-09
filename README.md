@@ -7,6 +7,8 @@
 
 In order to build st you need the Xlib header files.
 
+> **Note:**
+> [This branch](https://gitlab.freedesktop.org/mawww/libxft/tree/bgra-glyphs) of libXft was used to avoid st from crashing with emoji.
 
 ## Installation
 

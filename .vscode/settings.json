@@ -1,0 +1,10 @@
+{
+  "files.associations": {
+    "README": "markdown",
+    ".x*": "shellscript",
+    ".alias": "shellscript",
+    "dot-*": "shellscript",
+    "profile": "shellscript",
+    "xkblib.h": "c"
+  }
+}
