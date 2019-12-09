@@ -67,3 +67,6 @@ Based on Aurélien APTEL <aurelien dot aptel at gmail dot com> bt source code.
 
 - \[ [New terminal in current directory](https://st.suckless.org/patches/newterm/) \]:
   [st-newterm-0.8.2.diff](https://st.suckless.org/patches/newterm/st-newterm-0.8.2.diff)
+
+- \[ [spoiler](https://st.suckless.org/patches/spoiler/) \]:
+  [st-spoiler-20180309-c5ba9c0.diff](https://st.suckless.org/patches/spoiler/st-spoiler-20180309-c5ba9c0.diff)
