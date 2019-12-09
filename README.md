@@ -76,3 +76,8 @@ Based on Aurélien APTEL <aurelien dot aptel at gmail dot com> bt source code.
 
 - \[ [Visual bell 2](https://st.suckless.org/patches/visualbell/) \]:
   [st-visualbell2-enhanced-2018-10-16-30ec9a3.diff](https://st.suckless.org/patches/visualbell/st-visualbell2-enhanced-2018-10-16-30ec9a3.diff)
+
+- \[ [xresources](https://st.suckless.org/patches/xresources/) \]:
+  [st-xresources-20190105-3be4cf1.diff](https://st.suckless.org/patches/xresources/st-xresources-20190105-3be4cf1.diff)
+
+  > Note: [color_schemes](https://st.suckless.org/patches/palettes/) conflicts with xresources.
