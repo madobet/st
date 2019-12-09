@@ -70,3 +70,9 @@ Based on Aurélien APTEL <aurelien dot aptel at gmail dot com> bt source code.
 
 - \[ [spoiler](https://st.suckless.org/patches/spoiler/) \]:
   [st-spoiler-20180309-c5ba9c0.diff](https://st.suckless.org/patches/spoiler/st-spoiler-20180309-c5ba9c0.diff)
+
+- \[ [vertcenter](https://st.suckless.org/patches/vertcenter/) \]:
+  [st-vertcenter-20180320-6ac8c8a.diff](https://st.suckless.org/patches/vertcenter/st-vertcenter-20180320-6ac8c8a.diff)
+
+- \[ [Visual bell 2](https://st.suckless.org/patches/visualbell/) \]:
+  [st-visualbell2-enhanced-2018-10-16-30ec9a3.diff](https://st.suckless.org/patches/visualbell/st-visualbell2-enhanced-2018-10-16-30ec9a3.diff)

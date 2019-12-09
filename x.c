@@ -87,8 +87,11 @@ typedef struct {
 	int hborderpx, vborderpx;
 	int ch; /* char height */
 	int cw; /* char width  */
+	int cyo; /* char y offset */
 	int mode; /* window state/mode flags */
 	int cursor; /* cursor style */
+	int vbellset; /* 1 during visual bell, 0 otherwise */
+	struct timespec lastvbell;
 } TermWindow;
 
 typedef struct {
@@ -190,6 +193,11 @@ static void mousesel(XEvent *, int);
 static void mousereport(XEvent *);
 static char *kmap(KeySym, uint);
 static int match(uint, uint);
+
+static void vbellbegin();
+static int isvbellcell(int x, int y);
+static void xdrawvbell();
+static void xfillcircle(int x, int y, int r, uint color_ix);
 
 static void run(void);
 static void usage(void);
@@ -1044,6 +1052,7 @@ xloadfonts(char *fontstr, double fontsize)
 	/* Setting character width and height. */
 	win.cw = ceilf(dc.font.width * cwscale);
 	win.ch = ceilf(dc.font.height * chscale);
+	win.cyo = ceilf(dc.font.height * (chscale - 1) / 2);
 
 	FcPatternDel(pattern, FC_SLANT);
 	FcPatternAddInteger(pattern, FC_SLANT, FC_SLANT_ITALIC);
@@ -1277,7 +1286,7 @@ xmakeglyphfontspecs(XftGlyphFontSpec *specs, const Glyph *glyphs, int len, int x
 	FcCharSet *fccharset;
 	int i, f, numspecs = 0;
 
-	for (i = 0, xp = winx, yp = winy + font->ascent; i < len; ++i) {
+	for (i = 0, xp = winx, yp = winy + font->ascent + win.cyo; i < len; ++i) {
 		/* Fetch rune and mode for current glyph. */
 		rune = glyphs[i].u;
 		mode = glyphs[i].mode;
@@ -1302,7 +1311,7 @@ xmakeglyphfontspecs(XftGlyphFontSpec *specs, const Glyph *glyphs, int len, int x
 				font = &dc.bfont;
 				frcflags = FRC_BOLD;
 			}
-			yp = winy + font->ascent;
+			yp = winy + font->ascent + win.cyo;
 		}
 
 		if (mode & ATTR_BOXDRAW) {
@@ -1529,12 +1538,12 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
 
 	/* Render underline and strikethrough. */
 	if (base.mode & ATTR_UNDERLINE) {
-		XftDrawRect(xw.draw, fg, winx, winy + dc.font.ascent + 1,
+		XftDrawRect(xw.draw, fg, winx, winy + win.cyo + dc.font.ascent + 1,
 				width, 1);
 	}
 
 	if (base.mode & ATTR_STRUCK) {
-		XftDrawRect(xw.draw, fg, winx, winy + 2 * dc.font.ascent / 3,
+		XftDrawRect(xw.draw, fg, winx, winy + win.cyo + 2 * dc.font.ascent / 3,
 				width, 1);
 	}
 
@@ -1680,6 +1689,8 @@ xdrawline(Line line, int x1, int y1, int x2)
 			continue;
 		if (selected(x, y1))
 			new.mode ^= ATTR_REVERSE;
+		if (win.vbellset && isvbellcell(x, y1))
+			new.mode ^= ATTR_REVERSE;
 		if (i > 0 && ATTRCMP(base, new)) {
 			xdrawglyphfontspecs(specs, base, i, ox, y1);
 			specs += i;
@@ -1699,6 +1710,9 @@ xdrawline(Line line, int x1, int y1, int x2)
 void
 xfinishdraw(void)
 {
+	if (vbellmode == 3 && win.vbellset)
+		xdrawvbell();
+
 	XCopyArea(xw.dpy, xw.buf, xw.win, dc.gc, 0, 0, win.w,
 			win.h, 0, 0);
 	XSetForeground(xw.dpy, dc.gc,
@@ -1775,12 +1789,53 @@ xseturgency(int add)
 }
 
 void
+xfillcircle(int x, int y, int r, uint color_ix)
+{
+	XSetForeground(xw.dpy, dc.gc, dc.col[color_ix].pixel);
+	XFillArc(xw.dpy, xw.buf, dc.gc, x - r, y - r, r * 2, r * 2, 0, 360*64);
+}
+
+void
+xdrawvbell() {
+	int r = round(vbellradius * (vbellradius > 0 ? win.w : -win.cw));
+	int x = borderpx + r + vbellx * (win.tw - 2 * r);
+	int y = borderpx + r + vbelly * (win.th - 2 * r);
+	xfillcircle(x, y, r, vbellcolor_outline);
+	xfillcircle(x, y, r / 1.2, vbellcolor); /* 1.2 - an artistic choice */
+}
+
+int
+isvbellcell(int x, int y)
+{
+	if (vbellmode == 1)
+		return 1;
+	if (vbellmode == 2)
+		return y == 0 || y == win.th / win.ch - 1 ||
+		       x == 0 || x == win.tw / win.cw - 1;
+	return 0;
+}
+
+void
+vbellbegin() {
+	clock_gettime(CLOCK_MONOTONIC, &win.lastvbell);
+	if (win.vbellset) /* already visible, just extend win.lastvbell */
+		return;
+	win.vbellset = 1;
+	if (vbellmode != 3) /* 3 is an overlay, no need to re-render cells */
+		tfulldirt();
+	draw();
+	XFlush(xw.dpy);
+}
+
+void
 xbell(void)
 {
 	if (!(IS_SET(MODE_FOCUSED)))
 		xseturgency(1);
 	if (bellvolume)
 		XkbBell(xw.dpy, xw.win, bellvolume, (Atom)NULL);
+	if (vbelltimeout)
+		vbellbegin();
 }
 
 void
@@ -1946,7 +2001,7 @@ run(void)
 	int xfd = XConnectionNumber(xw.dpy), xev, blinkset = 0, dodraw = 0;
 	int ttyfd;
 	struct timespec drawtimeout, *tv = NULL, now, last, lastblink;
-	long deltatime;
+	long deltatime, to_ms, remain;
 
 	/* Waiting for window mapping */
 	do {
@@ -1998,11 +2053,28 @@ run(void)
 		tv = &drawtimeout;
 
 		dodraw = 0;
-		if (blinktimeout && TIMEDIFF(now, lastblink) > blinktimeout) {
-			tsetdirtattr(ATTR_BLINK);
-			win.mode ^= MODE_BLINK;
-			lastblink = now;
-			dodraw = 1;
+		to_ms = -1; /* timeout in ms, indefinite if negative */
+		if (blinkset) {
+			remain = blinktimeout - TIMEDIFF(now, lastblink);
+			if (remain <= 0) {
+				dodraw = 1;
+				remain = 1; /* draw, wait 1ms, and re-calc */
+				tsetdirtattr(ATTR_BLINK);
+				win.mode ^= MODE_BLINK;
+				lastblink = now;
+			}
+			to_ms = remain;
+		}
+		if (win.vbellset) {
+			remain = vbelltimeout - TIMEDIFF(now, win.lastvbell);
+			if (remain <= 0) {
+				dodraw = 1;
+				remain = -1; /* draw (clear), and that's it */
+				tfulldirt();
+				win.vbellset = 0;
+			}
+			if (remain >= 0 && (to_ms < 0 || remain < to_ms))
+				to_ms = remain;
 		}
 		deltatime = TIMEDIFF(now, last);
 		if (deltatime > 1000 / (xev ? xfps : actionfps)) {
@@ -2025,19 +2097,10 @@ run(void)
 			if (xev && !FD_ISSET(xfd, &rfd))
 				xev--;
 			if (!FD_ISSET(ttyfd, &rfd) && !FD_ISSET(xfd, &rfd)) {
-				if (blinkset) {
-					if (TIMEDIFF(now, lastblink) \
-							> blinktimeout) {
-						drawtimeout.tv_nsec = 1000;
-					} else {
-						drawtimeout.tv_nsec = (1E6 * \
-							(blinktimeout - \
-							TIMEDIFF(now,
-								lastblink)));
-					}
-					drawtimeout.tv_sec = \
-					    drawtimeout.tv_nsec / 1E9;
-					drawtimeout.tv_nsec %= (long)1E9;
+				if (to_ms >= 0) {
+					static const long k = 1E3, m = 1E6;
+					drawtimeout.tv_sec = to_ms / k;
+					drawtimeout.tv_nsec = (to_ms % k) * m;
 				} else {
 					tv = NULL;
 				}
