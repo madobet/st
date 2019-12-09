@@ -47,3 +47,6 @@ Based on Aurélien APTEL <aurelien dot aptel at gmail dot com> bt source code.
 
 - \[ [desktopentry](https://st.suckless.org/patches/desktopentry/) \]:
   [st-desktopentry-0.8.2.diff](https://st.suckless.org/patches/desktopentry/st-desktopentry-0.8.2.diff)
+
+- \[ [copyurl](https://st.suckless.org/patches/copyurl/) \]:
+  [st-copyurl-20190202-3be4cf1.diff](https://st.suckless.org/patches/copyurl/st-copyurl-20190202-3be4cf1.diff)
