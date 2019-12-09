@@ -84,3 +84,6 @@ Based on Aurélien APTEL <aurelien dot aptel at gmail dot com> bt source code.
 
 - \[ [font2](https://st.suckless.org/patches/font2/) \]:
   [st-font2-20190416-ba72400.diff](https://st.suckless.org/patches/font2/st-font2-20190416-ba72400.diff)
+
+- \[ [one clipboard](https://st.suckless.org/patches/clipboard/) \]:
+  [st-clipboard-20180309-c5ba9c0.diff](https://st.suckless.org/patches/clipboard/st-clipboard-20180309-c5ba9c0.diff)
