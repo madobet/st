@@ -196,6 +196,7 @@ static MouseShortcut mshortcuts[] = {
 
 static Shortcut shortcuts[] = {
 	/* mask                 keysym          function        argument */
+	{ TERMMOD,              XK_Return,      newterm,        {.i =  0} },
 	{ MODKEY,               XK_o,           opencopied,     {.v = "xdg-open"} },
   { MODKEY,               XK_l,           copyurl,        {.i =  0} },
 	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },

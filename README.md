@@ -65,3 +65,5 @@ Based on Aurélien APTEL <aurelien dot aptel at gmail dot com> bt source code.
   - changing scrolling speed:
     [st-scrollback-mouse-increment-0.8.2.diff](https://st.suckless.org/patches/scrollback/st-scrollback-mouse-increment-0.8.2.diff)
 
+- \[ [New terminal in current directory](https://st.suckless.org/patches/newterm/) \]:
+  [st-newterm-0.8.2.diff](https://st.suckless.org/patches/newterm/st-newterm-0.8.2.diff)
