@@ -44,3 +44,6 @@ Based on Aurélien APTEL <aurelien dot aptel at gmail dot com> bt source code.
 
 - \[ [boxdraw](https://st.suckless.org/patches/boxdraw/) \]:
   [st-boxdraw_v2-0.8.2.diff](https://st.suckless.org/patches/boxdraw/st-boxdraw_v2-0.8.2.diff)
+
+- \[ [desktopentry](https://st.suckless.org/patches/desktopentry/) \]:
+  [st-desktopentry-0.8.2.diff](https://st.suckless.org/patches/desktopentry/st-desktopentry-0.8.2.diff)
