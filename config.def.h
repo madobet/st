@@ -177,13 +177,14 @@ static uint forcemousemod = ShiftMask;
  * Internal mouse shortcuts.
  * Beware that overloading Button1 will disable the selection.
  */
+const unsigned int mousescrollincrement = 5;  // speed of mouse scrolling
 static MouseShortcut mshortcuts[] = {
 	/* mask                 button   function        argument       release */
-	{ XK_ANY_MOD,           Button4, kscrollup,      {.i = 1},      0, /* !alt */ -1 },
-	{ XK_ANY_MOD,           Button5, kscrolldown,    {.i = 1},      0, /* !alt */ -1 },
+	{ XK_ANY_MOD,           Button4, kscrollup,      {.i = mousescrollincrement},      0, /* !alt */ -1 },
+	{ XK_ANY_MOD,           Button5, kscrolldown,    {.i = mousescrollincrement},      0, /* !alt */ -1 },
   /* Commnet two lines bellow to disable "force scrolling" by Shift+MouseWheel: */
-	{ ShiftMask,            Button4, kscrollup,      {.i = 1} },
-	{ ShiftMask,            Button5, kscrolldown,    {.i = 1} },
+	{ ShiftMask,            Button4, kscrollup,      {.i = mousescrollincrement} },
+	{ ShiftMask,            Button5, kscrolldown,    {.i = mousescrollincrement} },
 	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
 	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
 	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },

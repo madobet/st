@@ -62,4 +62,6 @@ Based on Aurélien APTEL <aurelien dot aptel at gmail dot com> bt source code.
     [st-scrollback-mouse-20191024-a2c479c.diff](https://st.suckless.org/patches/scrollback/st-scrollback-mouse-20191024-a2c479c.diff)
   - scrollback using mouse wheel only when not in MODE_ALTSCREEN:
     [st-scrollback-mouse-altscreen-20191024-a2c479c.diff](https://st.suckless.org/patches/scrollback/st-scrollback-mouse-altscreen-20191024-a2c479c.diff)
+  - changing scrolling speed:
+    [st-scrollback-mouse-increment-0.8.2.diff](https://st.suckless.org/patches/scrollback/st-scrollback-mouse-increment-0.8.2.diff)
 
