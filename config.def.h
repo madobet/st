@@ -106,7 +106,7 @@ static float vbellx = 0.5;
 static float vbelly = 0.5;
 
 /* default TERM value */
-char *termname = "st-kano-256color";
+char *termname = "st-256color";
 
 /*
  * spaces per tab

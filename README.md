@@ -28,7 +28,7 @@ You can change it by setting `PREFIX` (for example, install at `~/.local`):
 If you did not install st with `make clean install`, you must compile
 the st terminfo entry with the following command:
 
-    tic -sx st-kano.info
+    tic -sx st.info
 
 See the man page for additional details.
 
@@ -58,6 +58,7 @@ Based on Aurélien APTEL <aurelien dot aptel at gmail dot com> bt source code.
   [plumb_without_shell_OSC.diff](https://st.suckless.org/patches/right_click_to_plumb/plumb_without_shell_OSC.diff)
 
 - \[ [scrollback](https://st.suckless.org/patches/scrollback/) \]:
+  
   - scrolling using Shift+\{PageUp, PageDown\}:
     [st-scrollback-20190331-21367a0.diff](https://st.suckless.org/patches/scrollback/st-scrollback-20190331-21367a0.diff)
   - scrolling using Shift+MouseWheel:
