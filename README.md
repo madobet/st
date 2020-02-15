@@ -81,3 +81,6 @@ Based on Aurélien APTEL <aurelien dot aptel at gmail dot com> bt source code.
   [st-xresources-20190105-3be4cf1.diff](https://st.suckless.org/patches/xresources/st-xresources-20190105-3be4cf1.diff)
 
   > Note: [color_schemes](https://st.suckless.org/patches/palettes/) conflicts with xresources.
+
+- \[ [font2](https://st.suckless.org/patches/font2/) \]:
+  [st-font2-20190416-ba72400.diff](https://st.suckless.org/patches/font2/st-font2-20190416-ba72400.diff)

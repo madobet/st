@@ -5,8 +5,16 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
+static char *font = "monospace:antialias=true:autohint=true";
 static int borderpx = 2;
+// 从 font 开始匹配到 font2[0] font2[1] ...
+/* Spare fonts */
+static char *font2[] = {
+	"monospace",
+	"Iosevka Nerd Font",
+	"Iosevka Term",
+	"NotoSansMono Nerd Font",
+	"Noto Sans Mono"};
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -259,6 +267,7 @@ static Shortcut shortcuts[] = {
 	/* mask                 keysym          function        argument */
 	{ TERMMOD,              XK_Return,      newterm,        {.i =  0} },
 	{ MODKEY,               XK_o,           opencopied,     {.v = "xdg-open"} },
+  // ! There used to be a key binding for zsh plugin tha XK_l maps to ls command
   { MODKEY,               XK_l,           copyurl,        {.i =  0} },
 	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
 	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
