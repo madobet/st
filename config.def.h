@@ -151,6 +151,12 @@ static const char *colorname[] = {
     "#cccccc"
 };
 
+/*
+ * Default columns and rows numbers
+ */
+
+static unsigned int cols = 80;
+static unsigned int rows = 24;
 
 /*
  * Xresources preferences to load at startup
@@ -186,6 +192,8 @@ ResourcePref resources[] = {
 		{ "borderpx",     INTEGER, &borderpx },
 		{ "cwscale",      FLOAT,   &cwscale },
 		{ "chscale",      FLOAT,   &chscale },
+		{ "cols",         INTEGER, &cols },
+		{ "rows",         INTEGER, &rows },
 };
 
 /*
@@ -205,13 +213,6 @@ static unsigned int defaultrcs = 257;
  * 7: Snowman ("☃")
  */
 static unsigned int cursorshape = 2;
-
-/*
- * Default columns and rows numbers
- */
-
-static unsigned int cols = 80;
-static unsigned int rows = 24;
 
 /*
  * Default colour and shape of the mouse cursor
